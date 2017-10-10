@@ -4,11 +4,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class Principal extends javax.swing.JFrame {
-int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
+public class Principal extends javax.swing.JFrame implements Runnable {
+
+    int a = 0, b = 0, am = 0, bm = 0, c1, c2, c3, sec=0, n, x,x2,x3, cont, error,op;
+
     public Principal() {
         initComponents();
-        
+    }
+    Thread hilo;
+
+   
+    @Override
+    public void run() {
+        Thread ct = Thread.currentThread();
+        while (ct == hilo) {
+            tiempo();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -26,6 +37,7 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         A3 = new javax.swing.JTextField();
         B3 = new javax.swing.JTextField();
         TIME1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         SIMB4 = new javax.swing.JLabel();
         SIMB5 = new javax.swing.JLabel();
@@ -36,6 +48,7 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         A2 = new javax.swing.JTextField();
         B2 = new javax.swing.JTextField();
         TIME2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         SIMB = new javax.swing.JLabel();
         SIMB1 = new javax.swing.JLabel();
@@ -46,9 +59,11 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         A = new javax.swing.JTextField();
         B = new javax.swing.JTextField();
         TIME = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -122,6 +137,9 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         TIME1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TIEMPO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 3, 18))); // NOI18N
         jPanel2.add(TIME1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 130, 100));
 
+        jButton2.setText("COMPROBAR");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
+
         jTabbedPane2.addTab("RESTA", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 255));
@@ -182,6 +200,9 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         TIME2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TIME2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TIEMPO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 3, 18))); // NOI18N
         jPanel3.add(TIME2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 130, 100));
+
+        jButton1.setText("COMPROBAR");
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, -1, -1));
 
         jTabbedPane2.addTab("MULTIPLICACION", jPanel3);
 
@@ -244,20 +265,29 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         TIME.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "TIEMPO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 3, 18))); // NOI18N
         jPanel1.add(TIME, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 130, 100));
 
+        jButton3.setText("COMPROBAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, -1, -1));
+
+        jTextField1.setEditable(false);
+        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Errores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 14))); // NOI18N
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 80, 80));
+
+        jTextField2.setEditable(false);
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aciertos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 14))); // NOI18N
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 140, 80, 80));
+
         jTabbedPane2.addTab("SUMA", jPanel1);
 
         getContentPane().add(jTabbedPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 580, 350));
 
         jMenu1.setText("Opciones");
-
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Nuevo");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem2);
 
         jMenu2.setText("Tiempo");
 
@@ -304,198 +334,265 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
     }// </editor-fold>//GEN-END:initComponents
 
     private void BEGINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEGINActionPerformed
-     if (n==0) {
+        if (n == 0) {
             JOptionPane.showMessageDialog(null, "Selecciona el tiempo primero en el menu OPCIONES");
+        } else {
+       
+            generar();
+            colocarSuma();
+            suma();
+
+            hilo = new Thread(this);
+            hilo.start();
+
         }
-        else{
-        generar();
-        colocarSuma();
-        suma();
-    try {
-        tiempo();
-    } catch (InterruptedException ex) {
-        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-    }
-     
-        } 
     }//GEN-LAST:event_BEGINActionPerformed
 
     private void BEGIN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEGIN1ActionPerformed
-        if (n==0) {
+        if (n == 0) {
             JOptionPane.showMessageDialog(null, "Selecciona el tiempo primero en el menu OPCIONES");
+        } else {
+        
+            generar();
+            colocarResta();
+            resta();
+
+            hilo = new Thread(this);
+            hilo.start();
+
         }
-        else{
-        generar();
-        colocarResta();
-        resta();
-    try {
-        tiempo();
-    } catch (InterruptedException ex) {
-        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-    }
-     
-        }        
     }//GEN-LAST:event_BEGIN1ActionPerformed
 
     private void BEGIN2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEGIN2ActionPerformed
-     if (n==0) {
+        if (n == 0) {
             JOptionPane.showMessageDialog(null, "Selecciona el tiempo primero en el menu OPCIONES");
+        } else {
+        
+            generar();
+            colocarMultiplicacion();
+            multiplicacion();
+            hilo = new Thread(this);
+            hilo.start();
+
         }
-        else{
-        generar();
-        colocarMultiplicacion();
-        multiplicacion();
-    try {
-        tiempo();
-    } catch (InterruptedException ex) {
-        Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-    }
-     
-        } 
     }//GEN-LAST:event_BEGIN2ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-    A.setText(String.valueOf(null));
-    B.setText(String.valueOf(null));
-    A2.setText(String.valueOf(null));
-    B2.setText(String.valueOf(null));
-    A3.setText(String.valueOf(null));
-    B3.setText(String.valueOf(null));
-    C.setText(String.valueOf(null));
-    C3.setText(String.valueOf(null));
-    C2.setText(String.valueOf(null));
-    
-    TIME.setText(null);
-    sec=0;
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       JOptionPane.showMessageDialog(null, "5 Segundos ACTIVOS");
-        n=5;
+        JOptionPane.showMessageDialog(null, "5 Segundos ACTIVOS");
+        n = 5;
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       JOptionPane.showMessageDialog(null, "10 Segundos ACTIVOS");
-        n=10;
+        JOptionPane.showMessageDialog(null, "10 Segundos ACTIVOS");
+        n = 10;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-       JOptionPane.showMessageDialog(null, "15 Segundos ACTIVOS");
-        n=15;
+        JOptionPane.showMessageDialog(null, "15 Segundos ACTIVOS");
+        n = 15;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-     System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void Resp1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Resp1KeyTyped
-       char c=evt.getKeyChar(); 
+        char c = evt.getKeyChar();
         int a = evt.getKeyChar();
-          if(Character.isLetter(c)|| a>32 && a<=47|| a>58 && a<=64|| a>91 && a<=96|| a>123 && a<=136) { 
-          //if(Character.isLetter(c)){      
-              evt.consume();  
-              getToolkit().beep();
-              JOptionPane.showMessageDialog(null,"Ingresa Solo NUMEROS");       
-          } 
+        if (Character.isLetter(c) || a > 32 && a <= 47 || a > 58 && a <= 64 || a > 91 && a <= 96 || a > 123 && a <= 136) {
+            //if(Character.isLetter(c)){      
+            evt.consume();
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Ingresa Solo NUMEROS");
+        }
     }//GEN-LAST:event_Resp1KeyTyped
 
     private void Resp2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Resp2KeyTyped
-        char c=evt.getKeyChar(); 
+        char c = evt.getKeyChar();
         int a = evt.getKeyChar();
-          if(Character.isLetter(c)|| a>32 && a<=47|| a>58 && a<=64|| a>91 && a<=96|| a>123 && a<=136) { 
-          //if(Character.isLetter(c)){      
-              evt.consume();  
-              getToolkit().beep();
-              JOptionPane.showMessageDialog(null,"Ingresa Solo NUMEROS");       
-          } 
+        if (Character.isLetter(c) || a > 32 && a <= 47 || a > 58 && a <= 64 || a > 91 && a <= 96 || a > 123 && a <= 136) {
+            //if(Character.isLetter(c)){      
+            evt.consume();
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Ingresa Solo NUMEROS");
+        }
     }//GEN-LAST:event_Resp2KeyTyped
 
     private void RespKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_RespKeyTyped
-        char c=evt.getKeyChar(); 
+        char c = evt.getKeyChar();
         int a = evt.getKeyChar();
-          if(Character.isLetter(c)|| a>32 && a<=47|| a>58 && a<=64|| a>91 && a<=96|| a>123 && a<=136) { 
-          //if(Character.isLetter(c)){      
-              evt.consume();  
-              getToolkit().beep();
-              JOptionPane.showMessageDialog(null,"Ingresa Solo NUMEROS");       
-          } 
+        if (Character.isLetter(c) || a > 32 && a <= 47 || a > 58 && a <= 64 || a > 91 && a <= 96 || a > 123 && a <= 136) {
+            //if(Character.isLetter(c)){      
+            evt.consume();
+            getToolkit().beep();
+            JOptionPane.showMessageDialog(null, "Ingresa Solo NUMEROS");
+        }
     }//GEN-LAST:event_RespKeyTyped
 
-    public void generar() {
-   
-    a = (int) (Math.random() * 99) + 1;
-    b = (int) (Math.random() * 99) + 1;
-    
-    am = (int) (Math.random() * 9) + 1;
-    bm = (int) (Math.random() * 9) + 1;
-     
-    }
-    public void colocarSuma(){
-    A.setText(String.valueOf(a));
-    B.setText(String.valueOf(b));
-    }
-    public void colocarMultiplicacion(){
-    A2.setText(String.valueOf(am));
-    B2.setText(String.valueOf(bm));
-    }
-    public void colocarResta(){
-    A3.setText(String.valueOf(a));
-    B3.setText(String.valueOf(b));
-    }
-    public void suma() {
-    
-    c1=a+b;
-     }
-    public void multiplicacion() {
-    c2=am*bm;
-     }
-    public void resta() {
-    c3=a-b;
-     }
-    
-    public void progreso() throws InterruptedException{
-       System.out.println(sec);
-       TIME.setText(String.valueOf(sec));
-       TIME1.setText(String.valueOf(sec)); 
-       TIME2.setText(String.valueOf(sec)); 
-       Thread.sleep(1000);
-    }
-     public void tiempo() throws InterruptedException {
-      
-        while(true) {
-           
-            sec++;  
-            progreso();
-            
-            if (sec==n) {
-            System.out.println("Termino el tiempo");
-                if (c1>0||c1<0) {
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (Resp==null) {
+            JOptionPane.showMessageDialog(null, "Escribe tu respuesta");
+        }else{
+        if (c1!=0) {
                     C.setText(String.valueOf(c1));
+                    
+                    x=Integer.parseInt(Resp.getText());
+                    if (c1==x) {
+                        cont++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Correcto!");
+                    }
+                    if (c1!=x) {
+                        error++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Incorrecto!");
+                    }
+                  detener();
                 }
-                if (c2>0||c2<0) {
-                    C2.setText(String.valueOf(c2));
-                }
-                if (c3>0||c3<0) {
-                    C3.setText(String.valueOf(c3));
-                }
-            
-            break;
-            
-         }//if
-         }//for
-        sec=0;
-     }//tiempo();
-    
-    /**
-     * @param args the command line arguments
-     */
+        }  
+    }//GEN-LAST:event_jButton3ActionPerformed
 
+    public void generar() {
+
+        a = (int) (Math.random() * 49) + 1;
+        b = (int) (Math.random() * 49) + 1;
+
+        am = (int) (Math.random() * 9) + 1;
+        bm = (int) (Math.random() * 9) + 1;
+
+    }
+
+    public void colocarSuma() {
+        
+        A.setText(String.valueOf(a));
+        B.setText(String.valueOf(b));
+    }
+
+    public void colocarMultiplicacion() {
+         
+        A2.setText(String.valueOf(am));
+        B2.setText(String.valueOf(bm));
+    }
+
+    public void colocarResta() {
+        
+        A3.setText(String.valueOf(a));
+        B3.setText(String.valueOf(b));
+    }
+
+    public void suma() {
+        C.setText(null);
+        c1=a + b;
+    }
+
+    public void multiplicacion() {
+        C2.setText(null);
+        c2 = am * bm;
+    }
+
+    public void resta() {
+        C3.setText(null);
+        c3 = a - b;
+    }
+
+    public void progreso() {
+        System.out.println(sec);
+        TIME.setText(String.valueOf(sec));
+        TIME1.setText(String.valueOf(sec));
+        TIME2.setText(String.valueOf(sec));
+
+    }
+
+    public void tiempo() {
+
+        while (true) {
+
+            sec++;
+            progreso();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (sec == n) {
+                System.out.println("Termino el tiempo");
+            
+                if(Resp == null||Resp1 == null||Resp2 == null){
+                error++;
+                break;
+                }else{
+                if (c1!=0) {
+                    C.setText(String.valueOf(c1));
+                    
+                    x=Integer.parseInt(Resp.getText());
+                    if (c1==x) {
+                        cont++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Correcto!");
+                        break;
+                    }
+                    if (c1!=x) {
+                        error++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Incorrecto!");
+                        break;
+                    }
+                    
+                }
+                if (c2!=0) {
+                    C2.setText(String.valueOf(c2));
+                    x2=Integer.parseInt(Resp2.getText());
+                    if (c2==x2) {
+                        cont++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Correcto!");
+                        break;
+                    }
+                    if (c2!=x2) {
+                        error++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Incorrecto!");
+                        break;
+                    }
+                  
+                }
+                if (c3>0||0>c3) {
+                    C3.setText(String.valueOf(c3));
+                    x3=Integer.parseInt(Resp1.getText());
+                    if (c3==x3) {
+                        cont++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Correcto!");
+                        break;
+                    }
+                    if (c3!=x3) {
+                        error++;
+                        op++;
+                        JOptionPane.showMessageDialog(null, "Incorrecto!");
+                        break;
+                    }
+                    
+                } 
+                }
+            }//if
+        }//while
+        sec = 0;
+        c1=0;
+        c2=0;
+        c3=0;
+        detener();
+    }//tiempo();
+
+    public void detener(){
+    hilo.stop();
+    }
+   
     /**
      *
      * @param args the command line arguments
      * @throws java.lang.InterruptedException
      */
-    public static void main(String args[])throws InterruptedException {
+    public static void main(String args[]) throws InterruptedException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -519,11 +616,10 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
         }
         //</editor-fold>
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-               
                 new Principal().setVisible(true);
             }
         });
@@ -554,11 +650,13 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
     private javax.swing.JTextField TIME;
     private javax.swing.JTextField TIME1;
     private javax.swing.JTextField TIME2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -566,6 +664,8 @@ int a=0,b=0,am=0,bm=0,c1=0,c2=0,c3=0,sec,n;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel resmul;
     private javax.swing.JLabel resres;
     private javax.swing.JLabel resum;
